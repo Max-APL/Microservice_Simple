@@ -1,0 +1,27 @@
+### Obtener todos los detalles de venta
+GET http://localhost:8002/ventas/detalle
+Content-Type: application/json
+
+###
+
+### Obtener un detalle de venta por ID
+GET http://localhost:8000/ventas/detalle/1
+Content-Type: application/json
+
+###
+
+### Crear un nuevo detalle de venta
+POST http://localhost:8002/ventas/detalle
+Content-Type: application/json
+
+{
+    "id_venta": 1,
+    "id_producto": 5,
+    "cantidad": 2
+}
+
+###
+
+### Eliminar un detalle de venta
+DELETE http://localhost:8000/ventas/detalle/1
+Content-Type: application/json

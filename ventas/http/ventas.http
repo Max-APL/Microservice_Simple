@@ -1,0 +1,39 @@
+### Obtener todas las ventas
+GET http://localhost:8000/ventas/venta
+Content-Type: application/json
+
+###
+
+### Obtener una venta por ID
+GET http://localhost:8000/ventas/venta/1
+Content-Type: application/json
+
+###
+
+### Crear una nueva venta
+POST http://localhost:8000/ventas/venta
+Content-Type: application/json
+
+{
+    "id_cliente": 1,
+    "fecha": "2024-11-22",
+    "total": 1500.00
+}
+
+###
+
+### Actualizar una venta existente
+PUT http://localhost:8000/ventas/venta/4
+Content-Type: application/json
+
+{
+    "id_cliente": 2,
+    "fecha": "2024-11-23",
+    "total": 1200.00
+}
+
+###
+
+### Eliminar una venta existente
+DELETE http://localhost:8000/ventas/venta/4
+Content-Type: application/json

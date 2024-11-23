@@ -1,0 +1,43 @@
+### Obtener todos los productos
+GET http://localhost:8001/gestion_productos/productos
+Content-Type: application/json
+
+###
+
+### Obtener un producto por ID
+GET http://localhost:8000/gestion_productos/productos/5
+Content-Type: application/json
+
+###
+
+### Crear un producto
+POST http://localhost:8000/gestion_productos/productos
+Content-Type: application/json
+
+{
+    "nombre": "Samsung Galaxy S21",
+    "descripcion": "Celular Android de gama alta",
+    "precio": 799.99,
+    "id_categoria": 1,
+    "id_marca": 1
+}
+
+###
+
+### Actualizar un producto existente
+PUT http://localhost:8000/gestion_productos/productos/13
+Content-Type: application/json
+
+{
+    "nombre": "iPhone 14 Pro",
+    "descripcion": "Modelo profesional del iPhone 14",
+    "precio": 1400.00,
+    "id_categoria": 1,
+    "id_marca": 2
+}
+
+###
+
+### Eliminar un producto
+DELETE http://localhost:8000/gestion_productos/productos/13
+Content-Type: application/json

@@ -1,0 +1,35 @@
+### Obtener todas las marcas
+GET http://localhost:8000/gestion_productos/marcas
+Content-Type: application/json
+
+###
+
+### Obtener una marca por ID
+GET http://localhost:8000/gestion_productos/marcas/1
+Content-Type: application/json
+
+###
+
+### Crear una nueva marca
+POST http://localhost:8000/gestion_productos/marcas
+Content-Type: application/json
+
+{
+    "nombre": "Xiaomi"
+}
+
+###
+
+### Actualizar una marca existente
+PUT http://localhost:8000/gestion_productos/marcas/4
+Content-Type: application/json
+
+{
+    "nombre": "Apple"
+}
+
+###
+
+### Eliminar una marca existente
+DELETE http://localhost:8000/gestion_productos/marcas/4
+Content-Type: application/json
