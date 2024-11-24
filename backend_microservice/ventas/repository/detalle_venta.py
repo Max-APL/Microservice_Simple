@@ -53,3 +53,10 @@ def actualizar_detalle_venta_db(id_detalle: int, detalle_data):
 
         db.cursor.execute(query, tuple(params))
         db.connection.commit()
+
+def obtener_detalles_por_venta(id_venta: int):
+    """Obtiene todos los detalles de venta relacionados con un ID de venta."""
+    with DatabaseConnection() as db:
+        db.cursor.execute("SELECT * FROM detalles_venta WHERE id_venta = %s", (id_venta,))
+        return db.cursor.fetchall()
+

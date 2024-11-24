@@ -4,7 +4,8 @@ from bl.detalle_venta import (
     obtener_detalle_venta,
     agregar_detalle_venta,
     borrar_detalle_venta,
-    actualizar_detalle_venta
+    actualizar_detalle_venta,
+    listar_detalles_por_venta
 )
 from schemas.detalle_venta import DetalleVentaRead, DetalleVentaCreate, DetalleVentaUpdate
 
@@ -45,4 +46,12 @@ def update_detalle_venta(id_detalle: int, detalle: DetalleVentaUpdate):
         return detalle_actualizado
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
+
+@router.get("/detalle/venta/{id_venta}", response_model=list[dict])
+def get_detalles_por_venta(id_venta: int):
+    """Endpoint para obtener todos los detalles de una venta específica."""
+    try:
+        detalles = listar_detalles_por_venta(id_venta)
+        return detalles
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))

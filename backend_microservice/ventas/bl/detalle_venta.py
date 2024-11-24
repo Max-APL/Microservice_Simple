@@ -3,7 +3,8 @@ from repository.detalle_venta import (
     obtener_detalle_venta_por_id,
     crear_detalle_venta,
     eliminar_detalle_venta,
-    actualizar_detalle_venta_db
+    actualizar_detalle_venta_db,
+    obtener_detalles_por_venta
 )
 from services.rabbitmq_service import RabbitMQService
 from schemas.detalle_venta import DetalleVentaCreate, DetalleVentaProcessed, DetalleVentaUpdate
@@ -68,3 +69,10 @@ def actualizar_detalle_venta(id_detalle: int, detalle_data: DetalleVentaUpdate):
 
     # Devolver el detalle actualizado
     return obtener_detalle_venta(id_detalle)
+
+def listar_detalles_por_venta(id_venta: int):
+    """Lógica para obtener todos los detalles de una venta específica."""
+    detalles = obtener_detalles_por_venta(id_venta)
+    if not detalles:
+        raise ValueError(f"No se encontraron detalles para la venta con ID {id_venta}")
+    return detalles
