@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### Actualizar un detalle de venta
-PUT http://localhost:8002/ventas/detalle/6
+PUT http://localhost:8002/ventas/detalle/7
 Content-Type: application/json
 
 {
@@ -35,5 +35,5 @@ Content-Type: application/json
 
 
 ### Eliminar un detalle de venta
-DELETE http://localhost:8002/ventas/detalle/6
+DELETE http://localhost:8002/ventas/detalle/7
 Content-Type: application/json
