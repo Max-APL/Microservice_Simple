@@ -3,4 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12 (productos)" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 virtualenv at C:\Users\maxpa\Pycharm\Microservice_Architecture\backend_microservice\productos\.venv" project-jdk-type="Python SDK" />
 </project>

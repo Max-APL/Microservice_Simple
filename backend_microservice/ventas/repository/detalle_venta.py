@@ -22,3 +22,34 @@ def crear_detalle_venta(detalle):
 def eliminar_detalle_venta(id: int):
     with DatabaseConnection() as db:
         db.cursor.execute("DELETE FROM detalles_venta WHERE id = %s", (id,))
+
+def actualizar_detalle_venta_db(id_detalle: int, detalle_data):
+    """Actualiza un detalle de venta en la base de datos."""
+    with DatabaseConnection() as db:
+        updates = []
+        params = []
+
+        if detalle_data.id_producto:
+            updates.append("id_producto = %s")
+            params.append(detalle_data.id_producto)
+        if detalle_data.nombre_producto:
+            updates.append("nombre_producto = %s")
+            params.append(detalle_data.nombre_producto)
+        if detalle_data.cantidad:
+            updates.append("cantidad = %s")
+            params.append(detalle_data.cantidad)
+        if detalle_data.precio_unitario is not None:
+            updates.append("precio_unitario = %s")
+            params.append(detalle_data.precio_unitario)
+        if detalle_data.subtotal is not None:
+            updates.append("subtotal = %s")
+            params.append(detalle_data.subtotal)
+
+        if not updates:
+            raise ValueError("No hay datos para actualizar.")
+
+        query = f"UPDATE detalles_venta SET {', '.join(updates)} WHERE id = %s"
+        params.append(id_detalle)
+
+        db.cursor.execute(query, tuple(params))
+        db.connection.commit()

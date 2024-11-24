@@ -3,9 +3,10 @@ from bl.detalle_venta import (
     listar_detalles_venta,
     obtener_detalle_venta,
     agregar_detalle_venta,
-    borrar_detalle_venta
+    borrar_detalle_venta,
+    actualizar_detalle_venta
 )
-from schemas.detalle_venta import DetalleVentaRead, DetalleVentaCreate
+from schemas.detalle_venta import DetalleVentaRead, DetalleVentaCreate, DetalleVentaUpdate
 
 router = APIRouter()
 
@@ -35,3 +36,13 @@ def delete_detalle_venta(id: int):
         return {"detail": "Detalle de venta eliminado"}
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+@router.put("/detalle/{id_detalle}", response_model=dict)
+def update_detalle_venta(id_detalle: int, detalle: DetalleVentaUpdate):
+    """Endpoint para actualizar un detalle de venta."""
+    try:
+        detalle_actualizado = actualizar_detalle_venta(id_detalle, detalle)
+        return detalle_actualizado
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    

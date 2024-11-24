@@ -2,10 +2,11 @@ from repository.detalle_venta import (
     obtener_detalles_venta,
     obtener_detalle_venta_por_id,
     crear_detalle_venta,
-    eliminar_detalle_venta
+    eliminar_detalle_venta,
+    actualizar_detalle_venta_db
 )
 from services.rabbitmq_service import RabbitMQService
-from schemas.detalle_venta import DetalleVentaCreate, DetalleVentaProcessed
+from schemas.detalle_venta import DetalleVentaCreate, DetalleVentaProcessed, DetalleVentaUpdate
 
 
 def listar_detalles_venta():
@@ -43,3 +44,27 @@ def borrar_detalle_venta(id: int):
     if not obtener_detalle_venta_por_id(id):
         raise ValueError("El detalle de venta no existe.")
     eliminar_detalle_venta(id)
+
+def actualizar_detalle_venta(id_detalle: int, detalle_data: DetalleVentaUpdate):
+    """Actualiza un detalle de venta después de validar el producto."""
+    if detalle_data.id_producto:
+        # Consultar el microservicio de Productos para obtener la información del producto
+        rabbitmq = RabbitMQService()
+        rabbitmq.send_message(detalle_data.id_producto)
+        product_info = rabbitmq.receive_message()
+        rabbitmq.close()
+
+        if "error" in product_info:
+            raise ValueError(f"Producto con ID {detalle_data.id_producto} no encontrado")
+
+        # Agregar datos del producto al detalle
+        detalle_data.nombre_producto = product_info["nombre"]
+        detalle_data.precio_unitario = product_info["precio"]
+        if detalle_data.cantidad is not None:
+            detalle_data.subtotal = product_info["precio"] * detalle_data.cantidad
+
+    # Actualizar el registro en la base de datos
+    actualizar_detalle_venta_db(id_detalle, detalle_data)
+
+    # Devolver el detalle actualizado
+    return obtener_detalle_venta(id_detalle)

@@ -24,3 +24,11 @@ class DetalleVentaRead(DetalleVentaProcessed):
 
     class Config:
         orm_mode = True
+
+class DetalleVentaUpdate(BaseModel):
+    """Esquema para actualizar un detalle de venta."""
+    id_producto: Optional[int] = None
+    nombre_producto: Optional[str] = None
+    cantidad: Optional[int] = None
+    precio_unitario: Optional[float] = None
+    subtotal: Optional[float] = None

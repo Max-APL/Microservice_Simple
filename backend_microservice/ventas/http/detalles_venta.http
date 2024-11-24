@@ -5,7 +5,7 @@ Content-Type: application/json
 ###
 
 ### Obtener un detalle de venta por ID
-GET http://localhost:8000/ventas/detalle/1
+GET http://localhost:8002/ventas/detalle/6
 Content-Type: application/json
 
 ###
@@ -20,7 +20,14 @@ Content-Type: application/json
     "cantidad": 2
 }
 
-###
+### Actualizar un detalle de venta
+PUT http://localhost:8002/ventas/detalle/6
+Content-Type: application/json
+
+{
+    "id_producto": 7,
+    "cantidad": 2
+}
 
 ### Eliminar un detalle de venta
 DELETE http://localhost:8000/ventas/detalle/1
