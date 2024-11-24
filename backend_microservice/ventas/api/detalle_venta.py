@@ -3,7 +3,7 @@ from bl.detalle_venta import (
     listar_detalles_venta,
     obtener_detalle_venta,
     agregar_detalle_venta,
-    borrar_detalle_venta,
+    eliminar_detalle_venta,
     actualizar_detalle_venta,
     listar_detalles_por_venta
 )
@@ -30,13 +30,15 @@ def create_detalle_venta(detalle: DetalleVentaCreate):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-@router.delete("/detalle/{id}")
-def delete_detalle_venta(id: int):
+@router.delete("/detalle/{id_detalle}", response_model=dict)
+def delete_detalle_venta(id_detalle: int):
+    """Endpoint para eliminar un detalle de venta y actualizar el total."""
     try:
-        borrar_detalle_venta(id)
-        return {"detail": "Detalle de venta eliminado"}
+        resultado = eliminar_detalle_venta(id_detalle)
+        return resultado
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
 
 @router.put("/detalle/{id_detalle}", response_model=dict)
 def update_detalle_venta(id_detalle: int, detalle: DetalleVentaUpdate):

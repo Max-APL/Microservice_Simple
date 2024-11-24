@@ -2,9 +2,11 @@ from repository.detalle_venta import (
     obtener_detalles_venta,
     obtener_detalle_venta_por_id,
     crear_detalle_venta,
-    eliminar_detalle_venta,
+    eliminar_detalle_venta_db,
     actualizar_detalle_venta_db,
-    obtener_detalles_por_venta
+    obtener_detalles_por_venta,
+    actualizar_total_venta,
+    calcular_total_venta
 )
 from services.rabbitmq_service import RabbitMQService
 from schemas.detalle_venta import DetalleVentaCreate, DetalleVentaProcessed, DetalleVentaUpdate
@@ -41,13 +43,21 @@ def agregar_detalle_venta(detalle_data: DetalleVentaCreate):
     # Crear el detalle de venta en la base de datos
     return crear_detalle_venta(detalle)
 
-def borrar_detalle_venta(id: int):
-    if not obtener_detalle_venta_por_id(id):
-        raise ValueError("El detalle de venta no existe.")
-    eliminar_detalle_venta(id)
+def eliminar_detalle_venta(id_detalle: int):
+    """Elimina un detalle de venta y recalcula el total de la venta."""
+    # Eliminar el detalle y obtener el id_venta relacionado
+    id_venta = eliminar_detalle_venta_db(id_detalle)
+
+    # Calcular el nuevo total de la venta
+    nuevo_total = calcular_total_venta(id_venta)
+
+    # Actualizar el total en la tabla ventas
+    actualizar_total_venta(id_venta, nuevo_total)
+
+    return {"id_venta": id_venta, "nuevo_total": nuevo_total}
 
 def actualizar_detalle_venta(id_detalle: int, detalle_data: DetalleVentaUpdate):
-    """Actualiza un detalle de venta después de validar el producto."""
+    """Actualiza un detalle de venta y recalcula el total de la venta."""
     if detalle_data.id_producto:
         # Consultar el microservicio de Productos para obtener la información del producto
         rabbitmq = RabbitMQService()
@@ -64,11 +74,20 @@ def actualizar_detalle_venta(id_detalle: int, detalle_data: DetalleVentaUpdate):
         if detalle_data.cantidad is not None:
             detalle_data.subtotal = product_info["precio"] * detalle_data.cantidad
 
-    # Actualizar el registro en la base de datos
-    actualizar_detalle_venta_db(id_detalle, detalle_data)
+    # Actualizar el registro en la base de datos y obtener el detalle actualizado
+    detalle_actualizado = actualizar_detalle_venta_db(id_detalle, detalle_data)
+    if not detalle_actualizado:
+        raise ValueError(f"No se pudo encontrar el detalle con ID {id_detalle} después de actualizar.")
 
-    # Devolver el detalle actualizado
-    return obtener_detalle_venta(id_detalle)
+    # Calcular el nuevo total de la venta
+    id_venta = detalle_actualizado["id_venta"]
+    nuevo_total = calcular_total_venta(id_venta)
+
+    # Actualizar el total en la tabla ventas
+    actualizar_total_venta(id_venta, nuevo_total)
+
+    # Retornar el detalle actualizado
+    return detalle_actualizado
 
 def listar_detalles_por_venta(id_venta: int):
     """Lógica para obtener todos los detalles de una venta específica."""
