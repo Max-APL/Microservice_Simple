@@ -1,5 +1,6 @@
 <template>
   <div>
+    <HeaderComponent />
     <h2 class="heading">Productos</h2>
     <button class="create-button" @click="openCreateModal">Crear Producto</button>
     <div v-if="loading" class="loading">Cargando productos...</div>
@@ -156,9 +157,11 @@
 import { ProductoService} from "../../service/productos/productoService";
 import { CategoriaService} from "../../service/productos/categoriaService";
 import { MarcaService} from "../../service/productos/marcaService";
+import HeaderComponent from "@/components/Header.vue";
 
 export default {
   name: 'ProductList',
+  components: {HeaderComponent},
   data() {
     return {
       defaultImage: 'https://cdn-icons-png.flaticon.com/512/2649/2649150.png',
@@ -211,6 +214,7 @@ export default {
       const productoService = new ProductoService();
       try {
         await productoService.agregarProducto(this.form);
+        this.form = {nombre: '', precio: '', descripcion: '', id_categoria: '', id_marca: ''};
         this.fetchProducts();
       } catch (error) {
         console.error('Error al crear el producto:', error);
