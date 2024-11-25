@@ -17,10 +17,10 @@
         <div
             class="category-card"
             v-for="category in categories"
-            :key="category.name"
+            :key="category.id"
         >
           <img src="@/assets/img.png" alt="Categoría" class="category-image" />
-          <h3>{{ category.name }}</h3>
+          <h3>{{ category.nombre }}</h3>
         </div>
       </div>
     </div>
@@ -84,17 +84,14 @@
 
 <script>
 import HeaderComponent from "@/components/Header.vue";
+import { CategoriaService } from "../../service/productos/categoriaService";
 
 export default {
   name: 'HomePage',
   components: {HeaderComponent},
   data() {
     return {
-      categories: [
-        { name: 'Celulares' },
-        { name: 'Laptops' },
-        { name: 'Accesorios' },
-      ],
+      categories: [],
       promotions: [
         { title: 'Celulares en Descuento', description: 'Hasta un 30% de descuento.' },
         { title: 'Laptops para Gaming', description: 'Descubre nuestras ofertas en laptops gamer.' },
@@ -108,12 +105,25 @@ export default {
         { name: 'HP' },
       ],
       contacts: [
-        { name: 'Soporte Técnico', phone: '+591 777-12345', email: 'soporte@techzone.com' },
-        { name: 'Ventas', phone: '+591 777-54321', email: 'ventas@techzone.com' },
-        { name: 'Marketing', phone: '+591 777-98765', email: 'marketing@techzone.com' },
-        { name: 'Atención al Cliente', phone: '+591 777-56789', email: 'clientes@techzone.com' },
+        { name: 'Camilo Mendez', phone: '+591 777-12345', email: 'rodrigo.mendez.g@ucb.edu.bo' },
+        { name: 'Luis Huanca', phone: '+591 777-54321', email: 'luis.huanca.m@ucb.edu.bo' },
+        { name: 'Max Pasten', phone: '+591 777-98765', email: 'max.pasten@ucb.edu.bo' },
+        { name: 'Andy Calle', phone: '+591 777-56789', email: 'andy.calle@ucb.edu.bo' },
       ],
     };
+  },
+  async mounted() {
+    await this.fetchCategories();
+  },
+  methods: {
+    async fetchCategories() {
+      const categoriesProducts = new CategoriaService()
+      try {
+        this.categories = await categoriesProducts.listarCategorias();
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    },
   },
 };
 </script>

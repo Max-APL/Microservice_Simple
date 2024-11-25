@@ -214,6 +214,7 @@ export default {
       const productoService = new ProductoService();
       try {
         await productoService.agregarProducto(this.form);
+        this.form = {nombre: '', precio: '', descripcion: '', id_categoria: '', id_marca: ''};
         this.fetchProducts();
       } catch (error) {
         console.error('Error al crear el producto:', error);
