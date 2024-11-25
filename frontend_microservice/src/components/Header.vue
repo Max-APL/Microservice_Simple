@@ -1,23 +1,19 @@
 <template>
   <header>
-    <h1>Gestión de Productos y Ventas</h1>
+    <h1><router-link to="/">Gestión de Productos y Ventas</router-link></h1>
     <nav>
       <ul>
-        <li><router-link to="/">Home</router-link></li>
-        <!-- Más enlaces de navegación -->
+        <li><router-link to="/productos">Productos</router-link></li>
+        <li><router-link to="/ventas">Ventas</router-link></li>
       </ul>
     </nav>
-    <!-- Decoración del loader dentro del header -->
     <div class="loader">
-      <div class="cell d-0"></div>
-      <div class="cell d-1"></div>
-      <div class="cell d-2"></div>
-      <div class="cell d-1"></div>
-      <div class="cell d-2"></div>
-      <div class="cell d-2"></div>
-      <div class="cell d-3"></div>
-      <div class="cell d-3"></div>
-      <div class="cell d-4"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
+      <div class="cell"></div>
     </div>
   </header>
 </template>
@@ -29,41 +25,41 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos del header */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+/* Estilo base */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
 
 header {
-  background-color: #2c3e50; /* Color de fondo oscuro y profesional */
-  color: white;
-  padding: 1.5rem 3rem;
+  background-color: #1e272e; /* Fondo gris oscuro */
+  color: #ffffff;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra sutil pero más destacada */
-  position: relative;
-  border-bottom: 2px solid #1a252f; /* Borde más oscuro */
-  border-radius: 12px 12px 0 0;
-  width: 100%;
+  border-bottom: 2px solid #0a0d10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
 }
 
-/* Título con una tipografía más elegante */
 h1 {
-  font-family: 'Montserrat', sans-serif; /* Usamos una fuente moderna */
-  font-size: 2.5rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
+  color: #38d9a9; /* Turquesa */
   margin: 0;
-  color: #ecf0f1; /* Color más suave y profesional */
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  flex-grow: 1;
-  transition: color 0.3s ease;
+  transition: color 0.3s;
+}
+
+h1 a {
+  text-decoration: none;
+  color: inherit;
 }
 
 h1:hover {
-  color: #f39c12; /* Efecto color dorado al pasar el mouse */
+  color: #20c997; /* Verde turquesa más oscuro */
 }
 
-/* Estilo de la barra de navegación */
 nav ul {
   list-style: none;
   padding: 0;
@@ -72,77 +68,53 @@ nav ul {
 }
 
 nav li {
-  margin-right: 2.5rem;
+  margin-right: 1.5rem;
 }
 
 nav a {
   text-decoration: none;
-  color: #ecf0f1; /* Color claro para los enlaces */
-  font-size: 1.2rem;
+  color: #dcdde1; /* Gris claro */
+  font-size: 1rem;
   font-weight: 500;
-  transition: color 0.3s ease, transform 0.3s ease; /* Agregar efecto de transición */
+  transition: color 0.3s, transform 0.2s;
 }
 
 nav a:hover {
-  color: #f39c12; /* Color dorado en hover */
-  transform: scale(1.1); /* Aumento de tamaño en hover */
+  color: #38d9a9; /* Turquesa */
+  transform: translateY(-3px);
 }
 
-/* Estilos para la decoración del loader dentro del header */
+/* Loader */
 .loader {
-  --cell-size: 30px;
-  --cell-spacing: 4px;
-  --cells: 3;
-  --total-size: calc(var(--cells) * (var(--cell-size) + 2 * var(--cell-spacing)));
   display: flex;
-  flex-wrap: wrap;
-  width: var(--total-size);
-  height: var(--total-size);
-  margin-left: 20px; /* Separar del contenido del header */
+  align-items: center;
+  gap: 8px;
+  margin-left: 1.5rem;
 }
 
-/* Estilo de las celdas del loader */
 .cell {
-  flex: 0 0 var(--cell-size);
-  margin: var(--cell-spacing);
-  background-color: transparent;
-  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+  background-color: #38d9a9; /* Turquesa uniforme */
   border-radius: 50%;
-  animation: 1.5s ripple ease infinite;
+  animation: bounce 1.5s infinite;
 }
 
-/* Diferentes colores para cada celda */
-.cell.d-1 { animation-delay: 100ms; }
-.cell.d-2 { animation-delay: 200ms; }
-.cell.d-3 { animation-delay: 300ms; }
-.cell.d-4 { animation-delay: 400ms; }
+.cell:nth-child(1) { animation-delay: 0s; }
+.cell:nth-child(2) { animation-delay: 0.2s; }
+.cell:nth-child(3) { animation-delay: 0.4s; }
+.cell:nth-child(4) { animation-delay: 0.6s; }
+.cell:nth-child(5) { animation-delay: 0.8s; }
+.cell:nth-child(6) { animation-delay: 1s; }
 
-.cell:nth-child(1) { --cell-color: #00FF87; }
-.cell:nth-child(2) { --cell-color: #0CFD95; }
-.cell:nth-child(3) { --cell-color: #17FBA2; }
-.cell:nth-child(4) { --cell-color: #23F9B2; }
-.cell:nth-child(5) { --cell-color: #30F7C3; }
-.cell:nth-child(6) { --cell-color: #3DF5D4; }
-.cell:nth-child(7) { --cell-color: #45F4DE; }
-.cell:nth-child(8) { --cell-color: #53F1F0; }
-.cell:nth-child(9) { --cell-color: #60EFFF; }
-
-/* Animación ripple */
-@keyframes ripple {
-  0% {
-    background-color: transparent;
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.6;
   }
-
-  30% {
-    background-color: var(--cell-color);
-  }
-
-  60% {
-    background-color: transparent;
-  }
-
-  100% {
-    background-color: transparent;
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
   }
 }
 </style>
