@@ -5,7 +5,7 @@ Content-Type: application/json
 ###
 
 ### Obtener un producto por ID
-GET http://localhost:8000/gestion_productos/productos/5
+GET http://localhost:8001/gestion_productos/productos/1
 Content-Type: application/json
 
 ###

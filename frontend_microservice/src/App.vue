@@ -13,5 +13,6 @@ body {
   background: #1e272e;
   margin: 0;
   padding: 0;
+  color: white;
 }
 </style>
