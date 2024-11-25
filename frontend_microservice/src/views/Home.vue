@@ -19,7 +19,7 @@
             v-for="category in categories"
             :key="category.id"
         >
-        <img :src="category.image" alt="Categoría" class="category-image" />
+        <img src="@/assets/img.png" alt="Categoría" class="category-image" />
         <h3>{{ category.nombre }}</h3>
 
         </div>
@@ -92,11 +92,7 @@ export default {
   components: {HeaderComponent},
   data() {
     return {
-      categories: [
-  { name: 'Celulares', image: require('@/assets/productos/1celular.png') },
-  { name: 'Laptops', image: require('@/assets/productos/1lapto.png') },
-  { name: 'Accesorios', image: require('@/assets/productos/1accesorio.png') },
-],
+      categories: [],
       promotions: [
         { title: 'Celulares en Descuento', description: 'Hasta un 30% de descuento.',image: require('@/assets/productos/2cel.jpeg') },
         { title: 'Laptops para Gaming', description: 'Descubre nuestras ofertas en laptops gamer.' ,image: require('@/assets/productos/2lapto.png')},
