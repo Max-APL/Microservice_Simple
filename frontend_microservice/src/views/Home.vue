@@ -19,8 +19,9 @@
             v-for="category in categories"
             :key="category.name"
         >
-          <img src="@/assets/img.png" alt="Categoría" class="category-image" />
-          <h3>{{ category.name }}</h3>
+        <img :src="category.image" alt="Categoría" class="category-image" />
+        <h3>{{ category.name }}</h3>
+
         </div>
       </div>
     </div>
@@ -34,7 +35,7 @@
             v-for="(promotion, index) in promotions"
             :key="index"
         >
-          <img src="@/assets/img.png" alt="Promoción" class="promotion-image" />
+          <img :src="promotion.image" alt="Promoción" class="promotion-image" />
           <div class="promotion-info">
             <h4>{{ promotion.title }}</h4>
             <p>{{ promotion.description }}</p>
@@ -50,7 +51,7 @@
         <img
             v-for="brand in brands"
             :key="brand.name"
-            src="@/assets/img.png"
+            :src="brand.image"
             alt="Marca"
             class="brand-logo"
         />
@@ -91,21 +92,21 @@ export default {
   data() {
     return {
       categories: [
-        { name: 'Celulares' },
-        { name: 'Laptops' },
-        { name: 'Accesorios' },
-      ],
+  { name: 'Celulares', image: require('@/assets/productos/1celular.png') },
+  { name: 'Laptops', image: require('@/assets/productos/1lapto.png') },
+  { name: 'Accesorios', image: require('@/assets/productos/1accesorio.png') },
+],
       promotions: [
-        { title: 'Celulares en Descuento', description: 'Hasta un 30% de descuento.' },
-        { title: 'Laptops para Gaming', description: 'Descubre nuestras ofertas en laptops gamer.' },
-        { title: 'Accesorios Esenciales', description: 'Audífonos, cargadores y más al mejor precio.' },
+        { title: 'Celulares en Descuento', description: 'Hasta un 30% de descuento.',image: require('@/assets/productos/2cel.jpeg') },
+        { title: 'Laptops para Gaming', description: 'Descubre nuestras ofertas en laptops gamer.' ,image: require('@/assets/productos/2lapto.png')},
+        { title: 'Accesorios Esenciales', description: 'Audífonos, cargadores y más al mejor precio.',image: require('@/assets/productos/2ac.jpg') },
       ],
       brands: [
-        { name: 'Apple' },
-        { name: 'Samsung' },
-        { name: 'Sony' },
-        { name: 'Dell' },
-        { name: 'HP' },
+        { name: 'Apple',image: require('@/assets/productos/apple.jpeg') },
+        { name: 'Samsung',image: require('@/assets/productos/samsung.avif') },
+        { name: 'Sony' ,image: require('@/assets/productos/sony.jpg')},
+        { name: 'Dell',image: require('@/assets/productos/dell.jpg') },
+        { name: 'HP' ,image: require('@/assets/productos/hp.jpg')},
       ],
       contacts: [
         { name: 'Soporte Técnico', phone: '+591 777-12345', email: 'soporte@techzone.com' },
@@ -125,7 +126,26 @@ export default {
   color: #2f3640;
   padding: 20px;
 }
+.category-image {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
 
+.promotions-image {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.brand-image {
+  width: 10px;
+  height: 10px;
+  object-fit: cover;
+  margin-bottom: 0px;
+}
 /* Banner Principal */
 .hero-banner {
   height: 400px;
